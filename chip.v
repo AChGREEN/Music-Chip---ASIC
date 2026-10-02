@@ -14,17 +14,17 @@ module keyboard(input clk, input reset, input [3:0] keys, output reg speaker);
         else period = 0; 
     end
 
-        always @(posedge clk or posedge reset) begin
-            if (reset || period == 0) begin
-                count <= 0;
-                speaker <= 0;
+        always @(posedge clk or posedge reset) begin //on every tick do one of these things
+            if (reset || period == 0) begin //if reset is on or no key is pressed:
+                count <= 0; //set count to 0
+                speaker <= 0; //set speaker to 0; silent
             end 
-            elseif (count >= period) begin
-                count <= 0;
-                speaker <= ~speaker;
+            elseif (count >= period) begin //if count is greater than or equal to period:
+                count <= 0; //set count to 0
+                speaker <= ~speaker; //flip the speaker (1 to 0 or 0 to 1)
             end 
-            else begin
-                count <= count + 1;
+            else begin //otherwise:
+                count <= count + 1; //add 1 to the counter
             end
         end
 endmodule
